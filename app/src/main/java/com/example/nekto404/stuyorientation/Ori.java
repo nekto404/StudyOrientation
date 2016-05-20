@@ -9,14 +9,26 @@ import android.widget.TextView;
 public class Ori extends AppCompatActivity {
 
     TextView v1;
+    String str="Hellow world";
+    private static final String KEY_STR= "Str";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ori);
         v1 = (TextView) findViewById(R.id.textView);
+
+        if (savedInstanceState != null) {
+            str = savedInstanceState.getString(KEY_STR, "Hellow");
+            v1.setText(str);
+        }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
 
+        outState.putString(KEY_STR, str);
+    }
 
     private String getRotateOrientation() {
         int rotate = getWindowManager().getDefaultDisplay().getRotation();
@@ -35,7 +47,8 @@ public class Ori extends AppCompatActivity {
     }
 
     public void onClickButton(View view) {
-        v1.setText(getRotateOrientation());
+        str=getRotateOrientation();
+        v1.setText(str);
     }
 
 }
